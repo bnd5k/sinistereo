@@ -18,7 +18,7 @@
     <link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
     <link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
 
-    #end bootstrap head, start sinistereo head info
+    <!-- #end bootstrap head, start sinistereo head info -->
     <link rel="stylesheet" href="zen/style.css">
 	<link rel="stylesheet" href="zen/css/zen.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>   
@@ -97,9 +97,6 @@
       		$('#zen .progress').css({rotate: '0deg'});
       		status = "stop";
       	});
-
-
-
 
 
       	// play/pause
@@ -201,21 +198,28 @@
   </head>
 
   <body>
+
     <script type="text/javascript">
     setSong();
     </script>
 
-      
-  </head>
-  <body>
+        <div class="container">
+          <%= image_tag("sinistereo_logo.png") %>
+
+            <ul class="nav">
+              <li class="user_links"><%= link_to "Profile", '#'  %></li>
+              <li class="user_links"><%= link_to "Sign out", '#'  %></li>
+            </ul>
+          </div>
+    </div>
 
     <div class="container">
       <div class="content">
         <div class="row">
            <div class="span9">
-              <%= yield %>
             </div>
             <div class="span4">
+
               <div class="well sidebar-nav">
                 <h3>Premium Blend</h3>
                 <ul class="nav nav-list">
@@ -249,34 +253,44 @@
         <div class="row">
             <div class="span4">
               <div class="well sidebar-nav">
-                <h3>Favorite Bands</h3>
+                <h3>Current Band</h3>
                 <ul class="nav nav-list">
-                  <li class="nav-header">Sidebar</li>
-                  <li><%= link_to "Link1", "/path1"  %></li>
-                  <li><%= link_to "Link2", "/path2"  %></li>
-                  <li><%= link_to "Link3", "/path3"  %></li>
+                  <li class="nav-header">Other Songs by Simple Machines</li>
+                  <li> All the Voices</li>
+                  <li> Every Time I Wait </li>
+                  <li> No Time for Revege </li>
+                  <li> Seven Seas </li>
+                  <li> Jagged Edge </li>
+                  <li> Pimp Juice </li>
                 </ul>
               </div><!--/.well -->
             </div><!--/span-->
             <div class="span4">
               <div class="well sidebar-nav">
-                <h3>Favorite Bands</h3>
+                <h3> Bands Info</h3>
                 <ul class="nav nav-list">
-                  <li class="nav-header">Sidebar</li>
-                  <li><%= link_to "Link1", "/path1"  %></li>
-                  <li><%= link_to "Link2", "/path2"  %></li>
-                  <li><%= link_to "Link3", "/path3"  %></li>
+                  <p> 
+The band was formed in Chicago in 2009 and has been hard at work writing original music ever since. They would describe their style as alternative Brit-rock with a catchy pop flavour. Their first EP, Spirit of the Shoreland, was launched on the 4th of December.
+                   </p>
+                  <li class="nav-header">Members</li>
+                  <li> Patrick Westley Hiller: vocals, guitars, keys </li>
+                                                      
+                  <li> Connor Lynch: bass </li>
+                  <li> Samir Merchant: guitars</li>
                 </ul>
               </div><!--/.well -->
             </div><!--/span-->
             <div class="span4">
               <div class="well sidebar-nav">
-                <h3>Favorite Bands</h3>
+                <h3>Upcoming Tour Dates</h3>
                 <ul class="nav nav-list">
-                  <li class="nav-header">Sidebar</li>
-                  <li><%= link_to "Link1", "/path1"  %></li>
-                  <li><%= link_to "Link2", "/path2"  %></li>
-                  <li><%= link_to "Link3", "/path3"  %></li>
+                  <li class="nav-header">Chicago Venues</li>
+                  <li> Empty Bottle: June 22</li>
+                  <li> Hideout: June 29</li>
+                  <li> Hideout: June 30 </li>
+                  <li> Shubas: July 4 </li>
+                  <li> House of Blues: July 6 </li>
+                  <li> House of Blues: July 7 </li>
                 </ul>
               </div><!--/.well -->
               <footer>
@@ -286,112 +300,5 @@
 
     </div> <!-- /container -->
 
-    <!-- Javascripts
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag "application" %>
-
   </body>
 </html>
-=======
-    <script type="text/javascript" src="zen/js/zen.js"></script>	
-  </head>
-
-  <body>
-
-    <div id="container">
-      <header>
-      <h1><%= link_to "SINISTEREO", root_url %> </h1>
-
-      </header>
-      
-      <nav>
-      <ul>
-        <% if @user %>
-          <% if @user.user_type == "Band" %>
-            <li><%= link_to "Dashboard", artist_url(@user.bands.first) %></li>
-          <% end %>
-          <li><%= link_to "Account", user_url(@user.id) %></li>
-          <li><%= link_to "Sign Out", signout_url %></li>
-        <% else %>
-          <li><%= link_to "Sign In", signin_url %></li>
-          <li><%= link_to "Sign Up", new_user_url %></li>
-        <% end %>
-      </ul>
-      </nav>
-    </div>
-    <div class="clear"></div>
-    
-    <body>
-      
-
-    <div id="content">
-
-      <% if flash[:notice].present? %>
-        <p id="notice"><%= notice %></p>
-      <% end %>
-
-      <aside>
-      <section>
-      <div id='premium_blend'>
-        <div>
-          <h3> Premium Blend </p>
-          </div>
-          <% @premium_songs.each do |song| %>
-            <ul>
-              <div>
-                <li><%= song.name %></li>
-              </div>
-            </ul>
-          <% end %>
-        </div>
-        </section>
-
-        <% if @user && @user.playlists.any? %>
-          <section>
-          <div id='accordian'>
-            <h2> My Playlists </h2>
-            <% @playlists.each do |playlist| %>
-              <ul>
-                <li><h3><%= link_to playlist.name, '#' %></h3></li>
-                <% playlist.songs.each do |song| %>
-                  <div>
-                    <ul>
-                      <li><%= song.name %></li>
-                    </ul>
-                  </div>
-                <% end %>
-              </ul>
-            <% end %>
-
-          <% end %>
-          </section>
-        </div>
-        </aside>
-
-     <article>
-
-	<div id="zen">
-		<span class="player"></span>
-		<span class="circle"></span>
-		<span class="progress"></span>
-		<span class="buffer"></span>
-		<span class="drag"></span>
-		<div class="button">
-			<span class="icon play"></span>
-			<span class="icon pause"></span>
-		</div>
-	</div>
-
-
-
-      </article>
-
-        </div>
-        <%= yield %>
-      </div>
-      
-      
-    </body>
-
-  </html
