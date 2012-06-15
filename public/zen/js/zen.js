@@ -12,7 +12,7 @@ $(document).ready(function(){
 	player.jPlayer({
 			ready: function () {
       		$(this).jPlayer("setMedia", {
-				mp3: "http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3" //#"audio/song.mp3",
+				mp3: song //"audio/song.mp3",
       		});
     	},
     	swfPath: "",
@@ -20,7 +20,7 @@ $(document).ready(function(){
   	});  
 
 
-
+    var song = "http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3" 
 
 	
 	// preload, update, end

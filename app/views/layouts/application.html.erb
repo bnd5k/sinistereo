@@ -1,291 +1,295 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Sinistereo</title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= stylesheet_link_tag    "player" %>
-    <%= javascript_include_tag "application" %>
-    <!--BND added 6/13, trying to do Zen player -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= "Sinistereo" %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
+    <link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+
+    #end bootstrap head, start sinistereo head info
     <link rel="stylesheet" href="zen/style.css">
 	<link rel="stylesheet" href="zen/css/zen.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>   
     <script type="text/javascript" src="zen/js/jquery.rotate.js"></script>
     <script type="text/javascript" src="zen/js/jquery.grab.js"></script> 
     <script type="text/javascript" src="zen/js/jquery.jplayer.min.js"></script>
-    <script type="text/javascript" src="zen/js/zen.js"></script>	
+    <script type="text/javascript">
+      $(document).ready(function(){    
 
-    <!--Bold scripts-->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-    <%= csrf_meta_tags %>
-    <script>
-      $(function() {
-        $( "#premium_blend" ).accordion();
+        	var status = "stop";
+      	var dragging = false;
+
+
+
+      	// init
+
+      	var player = $("#zen .player");
+
+      	// player.jPlayer({
+      	// 		ready: function () {
+      	//       		$(this).jPlayer("setMedia", {
+      	// 			mp3: "https://sinistereo.s3.amazonaws.com/uploads/song/audio/328/No_Time_For_Revenge_12.4.mp3" //#"audio/song.mp3",
+      	//       		});
+      	//     	},
+      	//   	});  
+
+      	function playSong(songUrl) {
+      		player.jPlayer({
+      			ready: function () {
+      				$(this).jPlayer("setMedia", {
+      					mp3: "" + songUrl
+      				});
+      			},
+
+      		});
+      	};
+
+      	playSong("<%= j(@premium_songs.shuffle.first.audio.url.to_s) %>");
+
+
+
+
+      	// preload, update, end
+
+      	player.bind($.jPlayer.event.progress, function(event) {    
+
+      		var audio = $('#zen audio').get(0);
+      		var pc = 0;    
+
+      		if ((audio.buffered != undefined) && (audio.buffered.length != 0)) {
+      		 	pc = parseInt(((audio.buffered.end(0) / audio.duration) * 100), 10); 
+      		  	displayBuffered(pc);
+      		  	//console.log(pc);
+      		  	if(pc >= 99) {
+      		  		//console.log("loaded");
+      		  		$('#zen .buffer').addClass("loaded");
+      		  	}  
+      		}        
+
+      	});
+
+      	//player.bind($.jPlayer.event.loadeddata, function(event) {    
+      		//$('#zen .buffer').addClass("loaded");    
+      	//});
+
+      	player.bind($.jPlayer.event.timeupdate, function(event) { 
+      		var pc = event.jPlayer.status.currentPercentAbsolute;
+      		if (!dragging) { 
+      	    	displayProgress(pc);
+      		}
+      	});
+      // BND: we have to change this so when event.ended occurs, it loads the new one.
+      	player.bind($.jPlayer.event.ended, function(event) {   
+      		$('#zen .circle').removeClass( "rotate" );
+      		$("#zen").removeClass( "play" );
+      		$('#zen .progress').css({rotate: '0deg'});
+      		status = "stop";
+      	});
+
+
+
+
+
+      	// play/pause
+
+      	$("#zen .button").bind('mousedown', function() {
+      		// not sure if this can be done in a simpler way.
+      		// when you click on the edge of the play button, but button scales down and doesn't drigger the click,
+      		// so mouseleave is added to still catch it.
+      		$(this).bind('mouseleave', function() {
+      			$(this).unbind('mouseleave');
+      			onClick();
+      		});
+      	});
+
+      	$("#zen .button").bind('mouseup', function() {
+      		$(this).unbind('mouseleave');
+      		onClick();
+      	});
+
+
+      	function onClick() {  		
+
+              if(status != "play") {
+      			status = "play";
+      			$("#zen").addClass( "play" );
+      			player.jPlayer("play");
+      		} else {
+      			$('#zen .circle').removeClass( "rotate" );
+      			$("#zen").removeClass( "play" );
+      			status = "pause";
+      			player.jPlayer("pause");
+      		}
+      	};
+
+
+
+
+      	// draggin
+
+      	var clickControl = $('#zen .drag');
+
+      	clickControl.grab({
+      		onstart: function(){
+      			dragging = true;
+      			$('#zen .button').css( "pointer-events", "none" );
+
+      		}, onmove: function(event){
+      			var pc = getArcPc(event.position.x, event.position.y);
+      			player.jPlayer("playHead", pc).jPlayer("play");
+      			displayProgress(pc);
+
+      		}, onfinish: function(event){
+      			dragging = false;
+      			var pc = getArcPc(event.position.x, event.position.y);
+      			player.jPlayer("playHead", pc).jPlayer("play");
+      			$('#zen .button').css( "pointer-events", "auto" );
+      		}
+      	});	
+
+
+
+
+
+
+      	// functions
+
+      	function displayProgress(pc) {
+      		var degs = pc * 3.6+"deg"; 
+      		$('#zen .progress').css({rotate: degs}); 		
+      	}
+      	function displayBuffered(pc) {
+      		var degs = pc * 3.6+"deg"; 
+      		$('#zen .buffer').css({rotate: degs}); 		
+      	}
+
+      	function getArcPc(pageX, pageY) { 
+      		var	self	= clickControl,
+      			offset	= self.offset(),
+      			x	= pageX - offset.left - self.width()/2,
+      			y	= pageY - offset.top - self.height()/2,
+      			a	= Math.atan2(y,x);  
+
+      			if (a > -1*Math.PI && a < -0.5*Math.PI) {
+      		   a = 2*Math.PI+a; 
+      		} 
+
+      		// a is now value between -0.5PI and 1.5PI 
+      		// ready to be normalized and applied   			
+      		var pc = (a + Math.PI/2) / 2*Math.PI * 10;   
+
+      		return pc;
+      	}
+
+
+
+
       });
-    </script>
-    <script>
-      $(function() {
-        $("#accordian").accordion();
-      });
-    </script>
-
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
-
-
-<script type="text/javascript">
-//<![CDATA[
-$(document).ready(function(){
-
-	var Playlist = function(instance, playlist, options) {
-		var self = this;
-
-		this.instance = instance; // String: To associate specific HTML with this playlist
-		this.playlist = playlist; // Array of Objects: The playlist
-		this.options = options; // Object: The jPlayer constructor options for this playlist
-
-		this.current = 0;
-
-		this.cssId = {
-			jPlayer: "jquery_jplayer_",
-			interface: "jp_interface_",
-			playlist: "jp_playlist_"
-		};
-		this.cssSelector = {};
-
-		$.each(this.cssId, function(entity, id) {
-			self.cssSelector[entity] = "#" + id + self.instance;
-		});
-
-		if(!this.options.cssSelectorAncestor) {
-			this.options.cssSelectorAncestor = this.cssSelector.interface;
-		}
-
-		$(this.cssSelector.jPlayer).jPlayer(this.options);
-
-		$(this.cssSelector.interface + " .jp-previous").click(function() {
-			self.playlistPrev();
-			$(this).blur();
-			return false;
-		});
-
-		$(this.cssSelector.interface + " .jp-next").click(function() {
-			self.playlistNext();
-			$(this).blur();
-			return false;
-		});
-	};
-
-	Playlist.prototype = {
-		displayPlaylist: function() {
-			var self = this;
-			$(this.cssSelector.playlist + " ul").empty();
-			for (i=0; i < this.playlist.length; i++) {
-				var listItem = (i === this.playlist.length-1) ? "<li class='jp-playlist-last'>" : "<li>";
-				listItem += "<a href='#' id='" + this.cssId.playlist + this.instance + "_item_" + i +"' tabindex='1'>"+ this.playlist[i].name +"</a>";
-
-				// Create links to free media
-				if(this.playlist[i].free) {
-					var first = true;
-					listItem += "<div class='jp-free-media'>(";
-					$.each(this.playlist[i], function(property,value) {
-						if($.jPlayer.prototype.format[property]) { // Check property is a media format.
-							if(first) {
-								first = false;
-							} else {
-								listItem += " | ";
-							}
-							listItem += "<a id='" + self.cssId.playlist + self.instance + "_item_" + i + "_" + property + "' href='" + value + "' tabindex='1'>" + property + "</a>";
-						}
-					});
-					listItem += ")</span>";
-				}
-
-				listItem += "</li>";
-
-				// Associate playlist items with their media
-				$(this.cssSelector.playlist + " ul").append(listItem);
-				$(this.cssSelector.playlist + "_item_" + i).data("index", i).click(function() {
-					var index = $(this).data("index");
-					if(self.current !== index) {
-						self.playlistChange(index);
-					} else {
-						$(self.cssSelector.jPlayer).jPlayer("play");
-					}
-					$(this).blur();
-					return false;
-				});
-
-				// Disable free media links to force access via right click
-				if(this.playlist[i].free) {
-					$.each(this.playlist[i], function(property,value) {
-						if($.jPlayer.prototype.format[property]) { // Check property is a media format.
-							$(self.cssSelector.playlist + "_item_" + i + "_" + property).data("index", i).click(function() {
-								var index = $(this).data("index");
-								$(self.cssSelector.playlist + "_item_" + index).click();
-								$(this).blur();
-								return false;
-							});
-						}
-					});
-				}
-			}
-		},
-		playlistInit: function(autoplay) {
-			if(autoplay) {
-				this.playlistChange(this.current);
-			} else {
-				this.playlistConfig(this.current);
-			}
-		},
-		playlistConfig: function(index) {
-			$(this.cssSelector.playlist + "_item_" + this.current).removeClass("jp-playlist-current").parent().removeClass("jp-playlist-current");
-			$(this.cssSelector.playlist + "_item_" + index).addClass("jp-playlist-current").parent().addClass("jp-playlist-current");
-			this.current = index;
-			$(this.cssSelector.jPlayer).jPlayer("setMedia", this.playlist[this.current]);
-		},
-		playlistChange: function(index) {
-			this.playlistConfig(index);
-			$(this.cssSelector.jPlayer).jPlayer("play");
-		},
-		playlistNext: function() {
-			var index = (this.current + 1 < this.playlist.length) ? this.current + 1 : 0;
-			this.playlistChange(index);
-		},
-		playlistPrev: function() {
-			var index = (this.current - 1 >= 0) ? this.current - 1 : this.playlist.length - 1;
-			this.playlistChange(index);
-		}
-	};
-
-	var mediaPlaylist = new Playlist("1", [
-		{
-			name:"All Summer Long",
-			mp3:"audio/CV Originals/01 All Summer Long.mp3",
-			poster:"audio/CV Originals/CV_All-Summer-Long-cover.jpg"
-		},
-		{
-			name:"She Is There",
-			mp3:"audio/CV Originals/02 She Is There.mp3",
-			poster:"audio/CV Originals/CV_All-Summer-Long-cover.jpg"
-		},
-		{
-			name:"Sweet Emily",
-			mp3:"audio/CV Originals/03 Sweet Emily.mp3",
-			poster:"audio/CV Originals/CV_All-Summer-Long-cover.jpg"
-		}
-	
-	], {
-		ready: function() {
-			mediaPlaylist.displayPlaylist();
-			mediaPlaylist.playlistInit(true); // Parameter is a boolean for autoplay.
-		},
-		ended: function() {
-			mediaPlaylist.playlistNext();
-		},
-		swfPath: "js",
-		solution: "flash, html",
-		supplied: "mp3"
-	});
-});
-//]]>
-</script>
-
-
-
-
+    </script>	
   </head>
 
+  <body>
+    <script type="text/javascript">
+    setSong();
+    </script>
 
+      
+  </head>
   <body>
 
-    <div id="container">
-      <header>
-      <h1><%= link_to "SINISTEREO", root_url %> </h1>
-      </header>
-      <nav>
-      <ul>
-        <% if @user.present? %>
-          <% if @user.user_type == "Band" %>
-            <li><%= link_to "Dashboard", artist_url(@user.bands.first) %></li>
-          <% end %>
-          <li><%= link_to "Account", user_url(@user.id) %></li>
-          <li><%= link_to "Sign Out", signout_url %></li>
-        <% else %>
-          <li><%= link_to "Sign In", signin_url %></li>
-          <li><%= link_to "Sign Up", new_user_url %></li>
-        <% end %>
-      </ul>
-      </nav>
-    </div>
-    <div class="clear"></div>
+    <div class="container">
+      <div class="content">
+        <div class="row">
+           <div class="span9">
+              <%= yield %>
+            </div>
+            <div class="span4">
+              <div class="well sidebar-nav">
+                <h3>Premium Blend</h3>
+                <ul class="nav nav-list">
+                    <% @premium_songs.each do |song| %>
+                          <li><%= song.name %></li>
+                    <% end %>
+                </ul>
+              </div><!--/.well -->
+            </div><!--/span-->
+            <div class="span8">
+              <div class="well sidebar-nav">
+                <h3>Player</h3>
 
-    <div id="content">
+                <div id="zen">
+                    <span class="player"></span>
+                    <span class="circle"></span>
+                    <span class="progress"></span>
+                    <span class="buffer"></span>
+                    <span class="drag"></span>
+                    <div class="button">
+                        <span class="icon play"></span>
+                        <span class="icon pause"></span>
+                    </div>
+                </div>
 
-      <% if flash[:notice].present? %>
-        <p id="notice"><%= notice %></p>
-      <% end %>
+              </div><!--/.well -->
+            </div><!--/span-->
+        </div><!--/row-->
+      </div><!--/content-->
 
-      <aside>
-      <section>
-      <div id='premium_blend'>
-        <div>
-          <h3> Premium Blend </p>
-          </div>
-          <% @premium_songs.each do |song| %>
-            <ul>
-              <div>
-                <li><%= song.name %></li>
-              </div>
-            </ul>
-          <% end %>
-        </div>
-        </section>
+        <div class="row">
+            <div class="span4">
+              <div class="well sidebar-nav">
+                <h3>Favorite Bands</h3>
+                <ul class="nav nav-list">
+                  <li class="nav-header">Sidebar</li>
+                  <li><%= link_to "Link1", "/path1"  %></li>
+                  <li><%= link_to "Link2", "/path2"  %></li>
+                  <li><%= link_to "Link3", "/path3"  %></li>
+                </ul>
+              </div><!--/.well -->
+            </div><!--/span-->
+            <div class="span4">
+              <div class="well sidebar-nav">
+                <h3>Favorite Bands</h3>
+                <ul class="nav nav-list">
+                  <li class="nav-header">Sidebar</li>
+                  <li><%= link_to "Link1", "/path1"  %></li>
+                  <li><%= link_to "Link2", "/path2"  %></li>
+                  <li><%= link_to "Link3", "/path3"  %></li>
+                </ul>
+              </div><!--/.well -->
+            </div><!--/span-->
+            <div class="span4">
+              <div class="well sidebar-nav">
+                <h3>Favorite Bands</h3>
+                <ul class="nav nav-list">
+                  <li class="nav-header">Sidebar</li>
+                  <li><%= link_to "Link1", "/path1"  %></li>
+                  <li><%= link_to "Link2", "/path2"  %></li>
+                  <li><%= link_to "Link3", "/path3"  %></li>
+                </ul>
+              </div><!--/.well -->
+              <footer>
+                <p>&copy; Sinistero 2012</p>
+              </footer>
+            </div><!--/span-->
 
-        <% if @user && @user.playlists.any? %>
-          <section>
-          <div id='accordian'>
-            <h2> My Playlists </h2>
-            <% @playlists.each do |playlist| %>
-              <ul>
-                <li><h3><%= link_to playlist.name, '#' %></h3></li>
-                <% playlist.songs.each do |song| %>
-                  <div>
-                    <ul>
-                      <li><%= song.name %></li>
-                    </ul>
-                  </div>
-                <% end %>
-              </ul>
-            <% end %>
+    </div> <!-- /container -->
 
-          <% end %>
-          </section>
-        </div>
-        </aside>
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>
 
-     <article>
-
-	<div id="zen">
-		<span class="player"></span>
-		<span class="circle"></span>
-		<span class="progress"></span>
-		<span class="buffer"></span>
-		<span class="drag"></span>
-		<div class="button">
-			<span class="icon play"></span>
-			<span class="icon pause"></span>
-		</div>
-	</div>
-
-
-
-      </article>
-
-        </div>
-        <%= yield %>
-      </div>
-    </body>
-
-  </html>
+  </body>
+</html>
