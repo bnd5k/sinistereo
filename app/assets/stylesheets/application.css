@@ -61,7 +61,38 @@ input, select {
 /***GLOBAL***/ 
 
 body {
-	background: #2BF5FF;
+	background: #000303;
+
+
+  background-image: linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
+  background-image: -o-linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
+  background-image: -moz-linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
+  background-image: -webkit-linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
+  background-image: -ms-linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
+
+  background-image: -webkit-gradient(
+  	linear,
+  	left bottom,
+  	left top,
+  	color-stop(0.14, rgb(8,7,1)),
+  	color-stop(0.68, rgb(127,235,235))
+  );
+
+
+}
+
+.head-container {
+	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	padding: 10px;
+	margin: 10px auto;
+	background: #18C2CC;
+	 -moz-border-radius: 5px;
+       -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+	width: 960px;
+    
 }
 
 .container {
@@ -77,9 +108,7 @@ body {
 	width: 960px;
     
 }
-.nav {
-	float: right;
-}
+
 .window {
 	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	padding: 20px;
@@ -210,4 +239,9 @@ article {
  float: left;
   margin: 20px 0 0 20px;
   width: 300px;
+}
+.sidebar-nav-player {
+    padding: 9px 0;
+    position:center;
+
 }

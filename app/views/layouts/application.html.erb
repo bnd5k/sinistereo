@@ -203,35 +203,40 @@
     setSong();
     </script>
 
-        <div class="container">
+        <div class="head-container"> <!-- Header info: logo and sign in -->
           <%= image_tag("sinistereo_logo.png") %>
 
-            <ul class="nav">
+            <ul class="sign-in-nav">
               <li class="user_links"><%= link_to "Profile", '#'  %></li>
               <li class="user_links"><%= link_to "Sign out", '#'  %></li>
             </ul>
-          </div>
-    </div>
+          </div> <!-- nav: signin -->
+    </div> <!-- /.container with header info -->
 
-    <div class="container">
-      <div class="content">
-        <div class="row">
-           <div class="span9">
-            </div>
-            <div class="span4">
+    <div class="container"> <!-- songs container -->
+      <div class="content"> <!-- songs content -->
+        <div class="row"> <!-- a row for whatever -->
+            <div class="span4"> <!-- span for song nav-list of songs -->
 
               <div class="well sidebar-nav">
                 <h3>Premium Blend</h3>
                 <ul class="nav nav-list">
-                    <% @premium_songs.each do |song| %>
-                          <li><%= song.name %></li>
-                    <% end %>
+                	<li>Simple Machines: "Love This"</li>
+                	<li> The Gills: "Cramped"</li>
+            	   	<li> Yes-no-no-Yes: "Far Flung"</li>
+	               	<li> The Dom Drapers: "Pill me"</li>
+	               	<li> Crickets: "Stank on it"</li>
+	               	<li> Glib Lovers: "In and Out"</li>
+	               	<li> Lady Puffins: "Thrill on the Bill"</li>
+	               	<li> Cranky Maids: "Clean It Yourself"</li>
+	               	<li> Trunk Muffins: "Numchuck Lovin"</li>
+
                 </ul>
               </div><!--/.well -->
-            </div><!--/span-->
-            <div class="span8">
-              <div class="well sidebar-nav">
-                <h3>Player</h3>
+            </div><!--/span 4 end-->
+            
+			<div class="span4"> <!-- span for song nav-list player -->
+              <div class="sidebar-nav-player">
 
                 <div id="zen">
                     <span class="player"></span>
@@ -242,11 +247,36 @@
                     <div class="button">
                         <span class="icon play"></span>
                         <span class="icon pause"></span>
-                    </div>
+                    </div>	
                 </div>
 
-              </div><!--/.well -->
-            </div><!--/span-->
+              </div><!--/.well sidebar-nav -->
+            </div><!--/span for nav-list player-->
+            
+
+			<div class="span4">
+			<div class="well sidebar-nav">
+	        
+	 		</div><!--/.well -->
+	        </div><!--/span-->
+	
+	
+    
+            		<div class="span4">
+              		<div class="well sidebar-nav">
+						<h3> You're currently listening to </h3>	
+		                <h3> <%= link_to "simplemachinesband", "http://simplemachinesband.bandcamp.com" %> </h3>
+		                <ul class="nav nav-list">
+		                  <li class="nav-header">Members</li>
+		                  <li> Patrick Westley: vocals, keys </li>                                        
+		                  <li> Connor Lynch: bass </li>
+		                  <li> Samir Merchant: guitars</li>
+		                </ul>
+		              </div><!--/.well -->
+		        </div><!--/span-->
+
+
+
         </div><!--/row-->
       </div><!--/content-->
 
@@ -258,45 +288,42 @@
                   <li class="nav-header">Other Songs by Simple Machines</li>
                   <li> All the Voices</li>
                   <li> Every Time I Wait </li>
-                  <li> No Time for Revege </li>
+                  <li> No Time for Revenge </li>
                   <li> Seven Seas </li>
                   <li> Jagged Edge </li>
                   <li> Pimp Juice </li>
+                  <li> Miami Blows </li>
                 </ul>
               </div><!--/.well -->
             </div><!--/span-->
             <div class="span4">
               <div class="well sidebar-nav">
-                <h3> Bands Info</h3>
+                <h3> Band Info</h3>
                 <ul class="nav nav-list">
                   <p> 
-The band was formed in Chicago in 2009 and has been hard at work writing original music ever since. They would describe their style as alternative Brit-rock with a catchy pop flavour. Their first EP, Spirit of the Shoreland, was launched on the 4th of December.
+Simple Machine was formed in Chicago in 2009 and has been hard at work writing original music ever since. They would describe their style as alternative Brit-rock with a catchy pop flavour. Their first EP, Spirit of the Shoreland, was launched on the 4th of December.
                    </p>
-                  <li class="nav-header">Members</li>
-                  <li> Patrick Westley Hiller: vocals, guitars, keys </li>
-                                                      
-                  <li> Connor Lynch: bass </li>
-                  <li> Samir Merchant: guitars</li>
-                </ul>
               </div><!--/.well -->
             </div><!--/span-->
-            <div class="span4">
-              <div class="well sidebar-nav">
-                <h3>Upcoming Tour Dates</h3>
-                <ul class="nav nav-list">
-                  <li class="nav-header">Chicago Venues</li>
-                  <li> Empty Bottle: June 22</li>
-                  <li> Hideout: June 29</li>
-                  <li> Hideout: June 30 </li>
-                  <li> Shubas: July 4 </li>
-                  <li> House of Blues: July 6 </li>
-                  <li> House of Blues: July 7 </li>
-                </ul>
-              </div><!--/.well -->
-              <footer>
-                <p>&copy; Sinistero 2012</p>
-              </footer>
-            </div><!--/span-->
+
+        <div class="span4">
+          <div class="well sidebar-nav">
+            <h3>Upcoming Concerts </h3>
+            <ul class="nav nav-list">
+              <li class="nav-header">Chicago Venues</li>
+              <li> Empty Bottle: June 22</li>
+              <li> Hideout: June 29</li>
+              <li> Hideout: June 30 </li>
+              <li> Shubas: July 4 </li>
+              <li> House of Blues: July 6 </li>
+              <li> House of Blues: July 7 </li>
+              <li> Hitching post: July 13 </li>
+              <li> Kalamari's: July 14 </li>
+            </ul>
+          </div><!--/.well -->
+
+        </div><!--/span-->
+
 
     </div> <!-- /container -->
 

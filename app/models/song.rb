@@ -18,7 +18,7 @@ class Song < ActiveRecord::Base
   attr_accessible :votes
 
   def self.premium_blend
-    Song.limit(20).order("votes desc")
+    Song.limit(50).order("votes desc")
   end
 
 end
