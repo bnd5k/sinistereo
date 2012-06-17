@@ -61,21 +61,20 @@ input, select {
 /***GLOBAL***/ 
 
 body {
-	background: #000303;
+	background: #414141;
 
-
-  background-image: linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
-  background-image: -o-linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
-  background-image: -moz-linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
-  background-image: -webkit-linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
-  background-image: -ms-linear-gradient(bottom, rgb(8,7,1) 14%, rgb(127,235,235) 68%);
+  background-image: linear-gradient(bottom, rgb(15,1,13) 14%, rgb(158,123,71) 68%);
+  background-image: -o-linear-gradient(bottom, rgb(15,1,13) 14%, rgb(158,123,71) 68%);
+  background-image: -moz-linear-gradient(bottom, rgb(15,1,13) 14%, rgb(158,123,71) 68%);
+  background-image: -webkit-linear-gradient(bottom, rgb(15,1,13) 14%, rgb(158,123,71) 68%);
+  background-image: -ms-linear-gradient(bottom, rgb(15,1,13) 14%, rgb(158,123,71) 68%);
 
   background-image: -webkit-gradient(
   	linear,
   	left bottom,
   	left top,
-  	color-stop(0.14, rgb(8,7,1)),
-  	color-stop(0.68, rgb(127,235,235))
+  	color-stop(0.14, rgb(15,1,13)),
+  	color-stop(0.68, rgb(158,123,71))
   );
 
 
@@ -85,27 +84,19 @@ body {
 	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	padding: 10px;
 	margin: 10px auto;
-	background: #18C2CC;
-	 -moz-border-radius: 5px;
-       -o-border-radius: 5px;
-  -webkit-border-radius: 5px;
-          border-radius: 5px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+
 	width: 960px;
-    
+
+   
 }
 
 .container {
-	font: 20px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	padding: 10px;
-	margin: 10px auto;
-	background: #ccc;
-	 -moz-border-radius: 5px;
-       -o-border-radius: 5px;
-  -webkit-border-radius: 5px;
-          border-radius: 5px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-	width: 960px;
+
+
+
+
+
+
     
 }
 
@@ -242,6 +233,6 @@ article {
 }
 .sidebar-nav-player {
     padding: 9px 0;
-    position:center;
+    position:center;,fpp
 
 }

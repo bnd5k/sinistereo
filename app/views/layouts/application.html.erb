@@ -205,12 +205,13 @@
 
         <div class="head-container"> <!-- Header info: logo and sign in -->
           <%= image_tag("sinistereo_logo.png") %>
-
+<!-- 
             <ul class="sign-in-nav">
               <li class="user_links"><%= link_to "Profile", '#'  %></li>
               <li class="user_links"><%= link_to "Sign out", '#'  %></li>
             </ul>
           </div> <!-- nav: signin -->
+
     </div> <!-- /.container with header info -->
 
     <div class="container"> <!-- songs container -->
@@ -230,10 +231,9 @@
 	               	<li> Lady Puffins: "Thrill on the Bill"</li>
 	               	<li> Cranky Maids: "Clean It Yourself"</li>
 	               	<li> Trunk Muffins: "Numchuck Lovin"</li>
-
                 </ul>
               </div><!--/.well -->
-            </div><!--/span 4 end-->
+			</div><!--/span 4 end-->
             
 			<div class="span4"> <!-- span for song nav-list player -->
               <div class="sidebar-nav-player">
@@ -252,29 +252,20 @@
 
               </div><!--/.well sidebar-nav -->
             </div><!--/span for nav-list player-->
-            
-
-			<div class="span4">
-			<div class="well sidebar-nav">
-	        
-	 		</div><!--/.well -->
-	        </div><!--/span-->
-	
-	
-    
-            		<div class="span4">
-              		<div class="well sidebar-nav">
-						<h3> You're currently listening to </h3>	
-		                <h3> <%= link_to "simplemachinesband", "http://simplemachinesband.bandcamp.com" %> </h3>
-		                <ul class="nav nav-list">
-		                  <li class="nav-header">Members</li>
-		                  <li> Patrick Westley: vocals, keys </li>                                        
-		                  <li> Connor Lynch: bass </li>
-		                  <li> Samir Merchant: guitars</li>
-		                </ul>
-		              </div><!--/.well -->
-		        </div><!--/span-->
-
+ 
+           
+            <div class="span4">
+              <div class="well sidebar-nav">
+				<h3> You're currently listening to </h3>	
+                <h3> <%= link_to "simplemachinesband", "http://simplemachinesband.bandcamp.com" %> </h3>
+                <ul class="nav nav-list">
+                  <li class="nav-header">Members</li>
+                  <li> Patrick Westley: vocals, keys </li>                                        
+                  <li> Connor Lynch: bass </li>
+                  <li> Samir Merchant: guitars</li>
+                </ul>
+              </div><!--/.well -->
+        </div><!--/span-->
 
 
         </div><!--/row-->
