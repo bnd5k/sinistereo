@@ -205,13 +205,12 @@
 
         <div class="head-container"> <!-- Header info: logo and sign in -->
           <%= image_tag("sinistereo_logo.png") %>
-<!-- 
-            <ul class="sign-in-nav">
+
+<!--             <ul class="sign-in-nav">
               <li class="user_links"><%= link_to "Profile", '#'  %></li>
               <li class="user_links"><%= link_to "Sign out", '#'  %></li>
             </ul>
-          </div> <!-- nav: signin -->
-
+          </div>  nav: signin -->
     </div> <!-- /.container with header info -->
 
     <div class="container"> <!-- songs container -->
@@ -222,18 +221,19 @@
               <div class="well sidebar-nav">
                 <h3>Premium Blend</h3>
                 <ul class="nav nav-list">
-                	<li>Simple Machines: "Love This"</li>
-                	<li> The Gills: "Cramped"</li>
-            	   	<li> Yes-no-no-Yes: "Far Flung"</li>
-	               	<li> The Dom Drapers: "Pill me"</li>
-	               	<li> Crickets: "Stank on it"</li>
-	               	<li> Glib Lovers: "In and Out"</li>
-	               	<li> Lady Puffins: "Thrill on the Bill"</li>
-	               	<li> Cranky Maids: "Clean It Yourself"</li>
-	               	<li> Trunk Muffins: "Numchuck Lovin"</li>
+                	<li> <%= link_to "Simple Machines: Love This", '#' %> </li>
+                	<li> <%= link_to "The Gills: Cramped", '#' %></li>
+            	   	<li> <%= link_to "Yes-no-no-Yes: Far Flung", '#' %></li>
+	               	<li> <%= link_to "The Dom Drapers: Pill me", '#' %></li>
+	               	<li> <%= link_to "Crickets: Stank on it", '#' %></li>
+	               	<li> <%= link_to "Glib Lovers: In and Out", '#' %></li>
+	               	<li> <%= link_to "Lady Puffins: Thrill on the Bill", '#' %></li>
+	               	<li> <%= link_to "Cranky Maids: Clean It Yourself", '#' %></li>
+	               	<li> <%= link_to "Trunk Muffins: Numchuck Lovin", '#' %></li>
+
                 </ul>
               </div><!--/.well -->
-			</div><!--/span 4 end-->
+            </div><!--/span 4 end-->
             
 			<div class="span4"> <!-- span for song nav-list player -->
               <div class="sidebar-nav-player">
@@ -252,20 +252,22 @@
 
               </div><!--/.well sidebar-nav -->
             </div><!--/span for nav-list player-->
- 
-           
+
+
             <div class="span4">
               <div class="well sidebar-nav">
 				<h3> You're currently listening to </h3>	
                 <h3> <%= link_to "simplemachinesband", "http://simplemachinesband.bandcamp.com" %> </h3>
                 <ul class="nav nav-list">
                   <li class="nav-header">Members</li>
-                  <li> Patrick Westley: vocals, keys </li>                                        
-                  <li> Connor Lynch: bass </li>
-                  <li> Samir Merchant: guitars</li>
+                  <li> <%= link_to "Patrick Westley: vocals, keys", '#' %> </li>                                        
+                  <li> <%= link_to "Connor Lynch: bass", '#' %></li>
+                  <li> <%= link_to "Samir Merchant: guitars", '#' %></li>
+                  <li> <%= link_to "Hank Keaton: drums", '#' %> </li>
                 </ul>
               </div><!--/.well -->
         </div><!--/span-->
+
 
 
         </div><!--/row-->
@@ -277,22 +279,22 @@
                 <h3>Current Band</h3>
                 <ul class="nav nav-list">
                   <li class="nav-header">Other Songs by Simple Machines</li>
-                  <li> All the Voices</li>
-                  <li> Every Time I Wait </li>
-                  <li> No Time for Revenge </li>
-                  <li> Seven Seas </li>
-                  <li> Jagged Edge </li>
-                  <li> Pimp Juice </li>
-                  <li> Miami Blows </li>
+                  <li>  <%= link_to "All the Voices", '#' %></li>
+                  <li>  <%= link_to "Every Time I Wait", '#' %> </li>
+                  <li>  <%= link_to "No Time for Revenge", '#' %> </li>
+                  <li>  <%= link_to "Seven Seas", '#' %> </li>
+                  <li>  <%= link_to "Jagged Edge", '#' %> </li>
+                  <li>  <%= link_to "Peaches Not Leeches", '#' %> </li>
+                  <li>  <%= link_to "Pimp Juice", '#' %> </li>
                 </ul>
               </div><!--/.well -->
             </div><!--/span-->
             <div class="span4">
               <div class="well sidebar-nav">
-                <h3> Band Info</h3>
+                <h3> Band Profile</h3>
                 <ul class="nav nav-list">
                   <p> 
-Simple Machine was formed in Chicago in 2009 and has been hard at work writing original music ever since. They would describe their style as alternative Brit-rock with a catchy pop flavour. Their first EP, Spirit of the Shoreland, was launched on the 4th of December.
+Simple Machine was formed in Chicago in 2009 and has been hard at work writing original music ever since. They would describe their style as alternative Brit-rock with a catchy pop flavour. Their first EP, Spirit of the Shoreland, was launched on the 4th of December. No band member has overdosed yet.  The band considers tax evasion "a fun hobby and a victimless crime."
                    </p>
               </div><!--/.well -->
             </div><!--/span-->
@@ -302,14 +304,13 @@ Simple Machine was formed in Chicago in 2009 and has been hard at work writing o
             <h3>Upcoming Concerts </h3>
             <ul class="nav nav-list">
               <li class="nav-header">Chicago Venues</li>
-              <li> Empty Bottle: June 22</li>
-              <li> Hideout: June 29</li>
-              <li> Hideout: June 30 </li>
-              <li> Shubas: July 4 </li>
-              <li> House of Blues: July 6 </li>
-              <li> House of Blues: July 7 </li>
-              <li> Hitching post: July 13 </li>
-              <li> Kalamari's: July 14 </li>
+              <li> <%= link_to "Empty Bottle: June 22", '#' %></li>
+              <li> <%= link_to "Hideout: June 29", '#' %></li>
+              <li> <%= link_to "Hideout: June 30", '#' %> </li>
+              <li> <%= link_to "Shubas: July 4", '#' %> </li>
+              <li> <%= link_to "House of Blues: July 6", '#' %> </li>
+              <li> <%= link_to "House of Blues: July 7", '#' %></li>
+              <li> <%= link_to "Kalamari's: July 14", '#' %> </li>
             </ul>
           </div><!--/.well -->
 

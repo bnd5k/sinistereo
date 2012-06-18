@@ -236,3 +236,8 @@ article {
     position:center;,fpp
 
 }
+.sidebar-nav {
+    padding: 9px 0;
+    position:center;,fpp
+    background: -webkit-linear-gradient(top, #f4f4f4, #ddd);
+}
